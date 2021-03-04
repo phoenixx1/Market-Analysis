@@ -12,7 +12,7 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="navbar-container">
         <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
-          BlaBla
+          Reactive
         </Link>
         <div className="menu-icon" onClick={handleClick}>
           <i className={click ? "fas fa-times" : "fas fa-bars"} />
@@ -25,20 +25,16 @@ const Navbar = () => {
           </li>
           <li className="nav-item">
             <Link
-              to="/services"
+              to="/dashboard"
               className="nav-links"
               onClick={closeMobileMenu}
             >
-              Services
+              Dashboard
             </Link>
           </li>
           <li className="nav-item">
-            <Link
-              to="/products"
-              className="nav-links"
-              onClick={closeMobileMenu}
-            >
-              Products
+            <Link to="/news" className="nav-links" onClick={closeMobileMenu}>
+              News
             </Link>
           </li>
         </ul>

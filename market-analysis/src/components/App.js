@@ -1,16 +1,18 @@
 import React from "react";
-import Navbar from "./Navbar";
 import Stats from "./Stats";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import HeroSection from "./HeroSection";
+import Home from "./Home";
+import Dashboard from "./Dashboard";
+import News from "./News";
 
 const App = () => {
   return (
     <div>
       <Router>
         {/* <Stats /> */}
-        <Navbar />
-        <HeroSection />
+        <Route path="/" exact component={Home} />
+        <Route path="/dashboard" exact component={Dashboard} />
+        <Route path="/news" exact component={News} />
       </Router>
     </div>
   );

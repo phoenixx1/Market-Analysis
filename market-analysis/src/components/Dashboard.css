@@ -1,0 +1,55 @@
+.company-header {
+  margin-left: 40px;
+  width: 50%;
+  padding: 10px;
+}
+.company-header h1 {
+  justify-content: center;
+  font-weight: 600;
+  font-size: 3rem;
+  font-family: "Hind", sans-serif;
+  color: #000;
+}
+.company-info {
+  color: #96aac1 !important;
+  margin: 15px 0 0 0;
+  display: block;
+  overflow: hidden;
+}
+.company-info strong:first-child {
+  background-color: #0078ff !important;
+  color: #ffffff !important;
+  font-size: 0.875rem;
+  padding: 0.125rem 0.5rem;
+}
+.cardscreen {
+  margin-top: 1rem !important;
+
+  background-color: #fff;
+  border: none;
+  outline: none;
+  min-height: 10rem;
+  box-shadow: 2px 2px 4px rgb(21 92 171 / 10%);
+  padding: 2rem;
+  border-radius: 0.25rem;
+  margin-top: 2rem;
+}
+.cardscreen h3 {
+  font-weight: 600;
+}
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background-clip: border-box;
+}
+.compess p {
+  font-family: "Source Sans Pro", sans-serif;
+  color: #000;
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  display: block;
+  clear: both;
+}
