@@ -8,6 +8,7 @@ import * as AiIcons from "react-icons/ai";
 import Search from "./Search";
 import { IconContext } from "react-icons/lib";
 import WatchList from "./WatchList";
+import Card from "./Card";
 
 function Sidebar() {
   const [sidebar, setSidebar] = useState(false);
@@ -23,6 +24,11 @@ function Sidebar() {
             <FaIcons.FaBars onClick={showSidebar} />
           </NavIcon>
           <CompanyName>ITC</CompanyName>
+          <Card title={"Display"} items={["Candle", "Bar", "Line"]} />
+          <Card
+            title={"Studies"}
+            items={["Bollinger Bands", "Moving Average", "Standard Deviation"]}
+          />
         </Nav>
         <SidebarNav sidebar={sidebar}>
           <SidebarWrap>

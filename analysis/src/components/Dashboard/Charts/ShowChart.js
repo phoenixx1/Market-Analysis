@@ -44,14 +44,14 @@ class CandleStickChartWithAnnotation extends React.Component {
     };
 
     const margin = { left: 80, right: 80, top: 30, bottom: 50 };
-    const height = 400;
-    const { type, data: initialData, width, ratio } = this.props;
-
+    const height = 520;
+    const { type, data: initialData, ratio } = this.props;
+    const width = 1100;
     const [yAxisLabelX, yAxisLabelY] = [
       width - margin.left - 40,
       (height - margin.top - margin.bottom) / 2,
     ];
-
+    // width = 266;
     const xScaleProvider = discontinuousTimeScaleProvider.inputDateAccessor(
       (d) => d.date
     );
@@ -119,6 +119,8 @@ class CandleStickChartWithAnnotation extends React.Component {
           />
 
           <CandlestickSeries />
+          <LineSeries yAccessor={(d) => d.future} stroke="#070fad" />
+
           <EdgeIndicator
             itemType="last"
             orient="right"

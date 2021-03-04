@@ -24,6 +24,7 @@ class RenderChart extends React.Component {
           high: +c.High,
           low: +c.Low,
           close: +c.Close,
+          future: +c.ITC,
         });
       });
     });
