@@ -29,7 +29,6 @@ class News extends React.Component {
   render() {
     return (
       <NewsContainer>
-        <BackgroundVideo src="videos/news.mp4" autoPlay loop muted />
         <NewsCards>{this.renderList()}</NewsCards>
       </NewsContainer>
     );
@@ -42,23 +41,13 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, { fetchNews })(News);
 
-const BackgroundVideo = styled.video`
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  z-index: -1;
-`;
-
 const NewsContainer = styled.div`
-  height: 100vh;
+  background: #e3e3e3;
+  height: 5500px;
   width: 100%;
   display: flex;
   flex-direction: column;
-
-  justify-content: center;
   align-items: center;
-  object-fit: contain;
 `;
 
 const NewsCards = styled.div`

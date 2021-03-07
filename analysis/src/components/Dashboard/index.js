@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import AnalysisSidebar from "./AnalysisSidebar";
+import WatchList from "./WatchList";
 import RenderChart from "./Charts/RenderChart";
 import Sidebar from "./Sidebar";
+import Search from "./Search";
 
 class Dashboard extends React.Component {
   render() {
@@ -11,7 +12,11 @@ class Dashboard extends React.Component {
         <Sidebar />
 
         <MainContent>
-          <AnalysisSidebar />
+          <SideContainer>
+            <Search />
+            <WatchList />
+          </SideContainer>
+
           <RenderChart />
         </MainContent>
       </DashboardContainer>
@@ -22,21 +27,24 @@ class Dashboard extends React.Component {
 export default Dashboard;
 
 const DashboardContainer = styled.div`
-  /* height: 100vh; */
-  height: 544px;
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin-top: 80px;
   object-fit: contain;
-
-  /* justify-content: center; */
-  /* align-items: center; */
 `;
 
 const MainContent = styled.div`
   display: flex;
-  /* height: 100vh; */
-  height: 544px;
   width: 100%;
+`;
+
+const SideContainer = styled.div`
+  background-color: #cfd5e3;
+  color: black;
+  /* flex: 0.3; */
+  height: 560px;
+  width: 250px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
 `;

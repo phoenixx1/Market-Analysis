@@ -3,14 +3,12 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
-// import { SidebarData } from "./SidebarData";
-// import SubMenu from "./SubMenu";
-import Search from "./Search";
 import { IconContext } from "react-icons/lib";
-import WatchList from "./WatchList";
 import Card from "./Card";
+import { connect } from "react-redux";
+import AnalysisSidebar from "./AnalysisSidebar";
 
-function Sidebar() {
+function Sidebar({ currentCompanyName }) {
   const [sidebar, setSidebar] = useState(false);
 
   const showSidebar = () => setSidebar(!sidebar);
@@ -23,7 +21,7 @@ function Sidebar() {
           <NavIcon to="#">
             <FaIcons.FaBars onClick={showSidebar} />
           </NavIcon>
-          <CompanyName>ITC</CompanyName>
+          <CompanyName>{currentCompanyName}</CompanyName>
           <Card title={"Display"} items={["Candle", "Bar", "Line"]} />
           <Card
             title={"Studies"}
@@ -35,16 +33,18 @@ function Sidebar() {
             <NavIcon to="#">
               <AiIcons.AiOutlineClose onClick={showSidebar} />
             </NavIcon>
-            <Search />
-            <WatchList />
+            <AnalysisSidebar />
           </SidebarWrap>
         </SidebarNav>
       </IconContext.Provider>
     </>
   );
 }
+const mapStateToProps = (state) => ({
+  currentCompanyName: state.currentCompany,
+});
 
-export default Sidebar;
+export default connect(mapStateToProps)(Sidebar);
 
 const CompanyName = styled.h4`
   margin-left: 220px;
@@ -78,7 +78,7 @@ const SidebarNav = styled.nav`
   width: 250px;
   display: flex;
   justify-content: center;
-  margin-top: 80px;
+  margin-top: 60px;
   height: 100vh;
   position: fixed;
   top: 0;

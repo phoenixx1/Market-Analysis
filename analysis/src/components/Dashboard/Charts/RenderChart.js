@@ -17,7 +17,7 @@ class RenderChart extends React.Component {
     this.props.prices.map((curr) => {
       curr.map((c) => {
         let tempDate = new Date(c.Date);
-        console.log(tempDate);
+        // console.log(tempDate);
         data.push({
           date: tempDate,
           open: +c.Open,
@@ -35,9 +35,10 @@ class RenderChart extends React.Component {
 
     return (
       <ChartContainer>
-        <TypeChooser>
+        {/* <TypeChooser>
           {(type) => <ShowChart type={type} data={data} />}
-        </TypeChooser>
+        </TypeChooser> */}
+        <ShowChart type={"canvas + svg"} data={data} />
       </ChartContainer>
     );
   }
@@ -49,7 +50,8 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, { fetchPrices })(RenderChart);
 
 const ChartContainer = styled.div`
-  width: 100%;
   justify-content: center;
   flex: 0.7;
+  /* height: 560px; */
+  /* overflow-y: scroll; */
 `;

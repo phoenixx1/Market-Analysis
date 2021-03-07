@@ -30,8 +30,8 @@ export const fetchNews = () => (dispatch) => {
   _fetchNews(dispatch);
 };
 const _fetchNews = _.memoize(async (dispatch) => {
-  const response = await newsAPI.get();
-  // const response = await gitNames("/news.json");
+  // const response = await newsAPI.get();
+  const response = await gitNames("/news.json");
   // console.log("news: ", response.data.articles);
   dispatch({ type: "FETCH_NEWS", payload: response.data.articles });
 });
@@ -44,3 +44,7 @@ const _fetchPrices = _.memoize(async (dispatch) => {
   //   console.log("res: ", response);
   dispatch({ type: "FETCH_PRICES", payload: response.data });
 });
+
+export const setName = (name) => (dispatch) => {
+  dispatch({ type: "SET_NAME", payload: name });
+};

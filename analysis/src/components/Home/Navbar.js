@@ -57,52 +57,48 @@ const HeaderAvatar = styled(Avatar)`
 `;
 
 const Nav = styled.nav`
-  background: rgba(0, 0, 0, 0.5);
-  height: 80px;
-  margin-top: -80px;
+  background: #2b2a2a;
+  height: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1rem;
-
+  font-size: 1.2rem;
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 999;
 `;
 
 const NavbarContainer = styled.div`
   display: flex;
-  justify-content: space-between;
-  height: 80px;
-  align-items: center;
-  z-index: 1;
-  width: 100%;
-  padding: 0 24px;
-  max-width: 1100px;
+  justify-content: center;
+  height: 60px;
+  max-width: 1500px;
 `;
 
 const NavbarLogo = styled(Link)`
   color: #fff;
-  justify-self: flex-start;
+  justify-self: start;
+  margin-left: 20px;
   cursor: pointer;
-  font-size: 1.5rem;
+  text-decoration: none;
+  font-size: 2rem;
   display: flex;
   align-items: center;
-  margin-left: 24px;
-  font-weight: bold;
-  text-decoration: none;
 `;
 
 const NavMenu = styled.ul`
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  grid-gap: 10px;
   list-style: none;
   text-align: center;
-  margin-right: -22px;
+  width: 60vw;
+  justify-content: end;
+  margin-right: 2rem;
 `;
 
 const NavItem = styled.li`
-  height: 80px;
+  height: 60px;
 `;
 
 const NavLinks = styled(Link)`
@@ -110,12 +106,12 @@ const NavLinks = styled(Link)`
   display: flex;
   align-items: center;
   text-decoration: none;
-  padding: 0 1rem;
+  padding: 0.5rem 1rem;
   height: 100%;
-  cursor: pointer;
 
-  &.active {
-    border-bottom: 3px solid #01bf71;
+  :hover {
+    border-bottom: 4px solid #fff;
+    transition: all 0.2s ease-out;
   }
 `;
 
@@ -141,7 +137,7 @@ const NavBtnLink = styled.button`
   transition: all 0.2s ease-in-out;
   text-decoration: none;
 
-  &:hover {
+  :hover {
     transition: all 0.2s ease-in-out;
     background: #fff;
     color: #010606;

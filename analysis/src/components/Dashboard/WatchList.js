@@ -1,10 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import { useCollection } from "react-firebase-hooks/firestore";
-import { db, auth } from "../../Firebase";
+import { db } from "../../Firebase";
+import { connect } from "react-redux";
+import { setName } from "../../actions";
 // import ClearIcon from "@material-ui/icons/Clear";
 
-function WatchList() {
+function WatchList({ currentCompanyName, setName }) {
   const [companies] = useCollection(
     db
       .collection("watchlist")
@@ -14,12 +16,17 @@ function WatchList() {
   );
   // console.log(companies.docs());
 
+  const updateCompany = (event, company) => {
+    // event.preventDefault();
+    setName(company);
+  };
+
   return (
     <WatchListContainer>
       {companies?.docs.map((allCompany) => {
         const { company } = allCompany.data();
         return (
-          <CompanyContainer>
+          <CompanyContainer onClick={(event) => updateCompany(event, company)}>
             {company}
             {/* <span>
               <ClearIcon />
@@ -30,22 +37,25 @@ function WatchList() {
     </WatchListContainer>
   );
 }
-
-export default WatchList;
+const mapStateToProps = (state) => ({
+  currentCompanyName: state.currentCompany,
+});
+export default connect(mapStateToProps, { setName })(WatchList);
 
 const WatchListContainer = styled.div`
   margin-top: 10px;
+  width: 100%;
 `;
 
 const CompanyContainer = styled.div`
   display: flex;
   align-items: center;
+
   padding: 5px;
   color: #fff;
-  background: rgb(46, 53, 59);
+  background: rgb(94, 108, 130);
   margin-top: 10px;
   cursor: pointer;
-  width: 250px;
 
   :hover {
     background: rgba(86, 92, 97, 0.6);

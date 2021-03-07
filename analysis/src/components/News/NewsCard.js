@@ -29,7 +29,7 @@ const NewsCardContainer = styled.div`
   display: flex;
   cursor: pointer;
   width: 1000px;
-  background: rgba(54, 62, 74, 0.5);
+  background: rgba(118, 123, 145, 0.5);
   padding: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.7), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   align-items: center;

@@ -1,4 +1,5 @@
 import React from "react";
+import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
 import Home from "./components/Home";
@@ -9,19 +10,11 @@ function App() {
   return (
     <Router>
       <Navbar />
-      <div>
-        <Switch>
-          <Route path="/dashboard">
-            <Dashboard />
-          </Route>
-          <Route path="/news">
-            <News />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
-      </div>
+      <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/dashboard" exact component={Dashboard} />
+        <Route path="/news" exact component={News} />
+      </Switch>
     </Router>
   );
 }

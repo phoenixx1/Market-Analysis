@@ -6,12 +6,14 @@ import { connect } from "react-redux";
 import { fetchNames } from "../../actions";
 import { db, auth } from "../../Firebase";
 import firebase from "firebase";
+import { useCollection } from "react-firebase-hooks/firestore";
 
 class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       input: "",
+      companyList: [],
       // authUser: null,
     };
   }
@@ -27,10 +29,23 @@ class Search extends React.Component {
 
   addToList(event, value) {
     event.preventDefault();
-    db.collection("watchlist").doc("list").collection("companies").add({
-      company: value,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-    });
+
+    if (value.length != 0) {
+      // const companies = [];
+      // db.collection("watchlist")
+      //   .doc("list")
+      //   .collection("companies")
+      //   .get()
+      //   .then((comp) => {
+      //     comp.docs.forEach((doc) => {
+      //       companies.push(String(doc.data().company));
+      //     });
+      //   });
+      db.collection("watchlist").doc("list").collection("companies").add({
+        company: value,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      });
+    }
   }
 
   render() {
@@ -51,8 +66,6 @@ class Search extends React.Component {
           options={companyList}
           renderInput={(params) => (
             <AutoTextField
-              value={this.state.input}
-              onChange={(e) => this.setState({ input: e.target.value })}
               {...params}
               id="standard-secondary"
               label="Search Company Name"
@@ -84,9 +97,12 @@ const AutoTextField = styled(TextField)`
 
 const SearchContainer = styled.div`
   /* Use rgba value for not applying opacity property to child elements */
-  background: rgba(54, 62, 74, 0.5);
+  background: rgba(94, 108, 130, 0.5);
+  margin-top: 15px;
+  width: 100%;
   height: 5vh;
   display: flex;
+  border-radius: 50px;
   align-items: center;
   justify-content: center;
 `;
