@@ -25,24 +25,26 @@ class RenderChart extends React.Component {
 
   render() {
     let data = [];
-
+    let i = 0;
     this.props.prices.map((curr) => {
       curr.map((c) => {
         let tempDate = new Date(c.Date);
         // console.log(tempDate);
+
         data.push({
           date: tempDate,
           open: +c.Open,
           high: +c.High,
           low: +c.Low,
           close: +c.Close,
+          SMA: this.props.studies[0][i++],
           // SMA: +c.SMA,
           // EMA: +c.EMA,
         });
       });
     });
 
-    // console.log(data);
+    console.log(data);
     if (data.length === 0) {
       return <div>Loading....</div>;
     }

@@ -62,20 +62,20 @@ class CandleStickChartWithAnnotation extends React.Component {
     const end = xAccessor(data[Math.max(0, data.length - 50)]);
     const xExtents = [start, end];
 
-    const ema5 = ema()
-      .options({
-        windowSize: 5, // optional will default to 10
-        sourcePath: "close", // optional will default to close as the source
-      })
-      .skipUndefined(true) // defaults to true
-      .merge((d, c) => {
-        d.EMA = c;
-      }) // Required, if not provided, log a error
-      .accessor((d) => d.EMA) // Required, if not provided, log an error during calculation
-      .stroke("blue"); // Optional
+    // const ema5 = ema()
+    //   .options({
+    //     windowSize: 5, // optional will default to 10
+    //     sourcePath: "close", // optional will default to close as the source
+    //   })
+    //   .skipUndefined(true) // defaults to true
+    //   .merge((d, c) => {
+    //     d.EMA = c;
+    //   }) // Required, if not provided, log a error
+    //   .accessor((d) => d.EMA) // Required, if not provided, log an error during calculation
+    //   .stroke("blue"); // Optional
 
     const sma5 = sma()
-      .options({ windowSize: 5 })
+      .options({ windowSize: 20 })
       .merge((d, c) => {
         d.SMA = c;
       })
@@ -96,7 +96,7 @@ class CandleStickChartWithAnnotation extends React.Component {
       >
         <Chart
           id={1}
-          yExtents={[(d) => [d.high, d.low], ema5.accessor(), sma5.accessor()]}
+          yExtents={[(d) => [d.high, d.low], sma5.accessor()]}
           padding={{ top: 10, bottom: 20 }}
         >
           <XAxis axisAt="bottom" orient="bottom" />
@@ -122,11 +122,11 @@ class CandleStickChartWithAnnotation extends React.Component {
           <CandlestickSeries />
           {MA ? (
             <>
-              <LineSeries yAccessor={ema5.accessor()} stroke={ema5.stroke()} />
+              {/* <LineSeries yAccessor={ema5.accessor()} stroke={ema5.stroke()} />
               <CurrentCoordinate
                 yAccessor={ema5.accessor()}
                 fill={ema5.stroke()}
-              />
+              /> */}
               <LineSeries yAccessor={sma5.accessor()} stroke={sma5.stroke()} />
               <CurrentCoordinate
                 yAccessor={sma5.accessor()}
@@ -136,13 +136,13 @@ class CandleStickChartWithAnnotation extends React.Component {
                 onClick={(e) => console.log(e)}
                 origin={[10, 15]}
                 options={[
-                  {
-                    yAccessor: ema5.accessor(),
-                    type: "EMA",
-                    stroke: ema5.stroke(),
-                    windowSize: ema5.options().windowSize,
-                    echo: "some echo here",
-                  },
+                  // {
+                  //   yAccessor: ema5.accessor(),
+                  //   type: "EMA",
+                  //   stroke: ema5.stroke(),
+                  //   windowSize: ema5.options().windowSize,
+                  //   echo: "some echo here",
+                  // },
                   {
                     yAccessor: sma5.accessor(),
                     type: "SMA",

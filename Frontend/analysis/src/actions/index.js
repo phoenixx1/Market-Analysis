@@ -44,7 +44,7 @@ const _fetchPrices = _.memoize(async (dispatch) => {
   // const response = await gitNames.get("/itc.json");
   const response = await getPrices.get("/data/ITC");
   // console.log("res: ", response);
-  // console.log("res: ", response);
+  // console.log("res: ", response.data.prices.ITC);
   // dispatch({ type: "FETCH_PRICES", payload: response.data });
   dispatch({ type: "FETCH_PRICES", payload: response.data.prices.ITC });
 });
@@ -54,8 +54,9 @@ export const fetchStudies = () => (dispatch) => {
 };
 const _fetchStudies = _.memoize(async (dispatch) => {
   const response = await getPrices.get("/study/ITC/MA");
-  console.log("res: ", response.data);
-  dispatch({ type: "FETCH_STUDIES", payload: response.data });
+  const data = response.data.slice(1, response.data.length - 1);
+  // console.log(data.split(", ").map((x) => +x));
+  dispatch({ type: "FETCH_STUDIES", payload: data.split(", ").map((x) => +x) });
 });
 
 export const setName = (name) => (dispatch) => {
