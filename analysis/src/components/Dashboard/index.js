@@ -42,7 +42,7 @@ const SideContainer = styled.div`
   background-color: #cfd5e3;
   color: black;
   /* flex: 0.3; */
-  height: 560px;
+  height: 100vh-80;
   width: 250px;
   align-items: center;
   display: flex;

@@ -3,7 +3,10 @@ import styled from "styled-components";
 
 function NewsCard({ url, image, title, source, desc, time }) {
   return (
-    <NewsCardContainer onClick={() => window.open(url, "_blank")}>
+    <NewsCardContainer
+      id="container"
+      onClick={() => window.open(url, "_blank")}
+    >
       <NewsImage>
         <img src={image} alt={source} />
       </NewsImage>

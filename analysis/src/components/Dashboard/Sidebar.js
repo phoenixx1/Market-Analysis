@@ -4,9 +4,10 @@ import { Link } from "react-router-dom";
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import { IconContext } from "react-icons/lib";
-import Card from "./Card";
 import { connect } from "react-redux";
 import AnalysisSidebar from "./AnalysisSidebar";
+import CustomizationNavChart from "./CustomizationNavChart";
+import CustomizationNavStudy from "./CustomizationNavStudy";
 
 function Sidebar({ currentCompanyName }) {
   const [sidebar, setSidebar] = useState(false);
@@ -22,12 +23,21 @@ function Sidebar({ currentCompanyName }) {
             <FaIcons.FaBars onClick={showSidebar} />
           </NavIcon>
           <CompanyName>{currentCompanyName}</CompanyName>
-          <Card title={"Display"} items={["Candle", "Bar", "Line"]} />
-          <Card
-            title={"Studies"}
-            items={["Bollinger Bands", "Moving Average", "Standard Deviation"]}
+          <CustomizationNavChart
+            title={"Display"}
+            items={[
+              "CandleStick",
+              "Area",
+              "Line",
+              "OHLC",
+              "Kagi",
+              "Renko",
+              "Point & Figure",
+            ]}
           />
+          <CustomizationNavStudy title={"Study"} items={["MA", "Clear"]} />
         </Nav>
+
         <SidebarNav sidebar={sidebar}>
           <SidebarWrap>
             <NavIcon to="#">

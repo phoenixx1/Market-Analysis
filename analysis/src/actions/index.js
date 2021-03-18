@@ -1,6 +1,7 @@
 import gitNames from "../apis/gitNames";
 import newsAPI from "../apis/newsAPI";
 import _ from "lodash";
+import getPrices from "../apis/getPrices";
 
 // export const fetchNames = () => async (dispatch) => {
 //   const response = await gitNames.get("/companyList.json");
@@ -41,10 +42,21 @@ export const fetchPrices = () => (dispatch) => {
 };
 const _fetchPrices = _.memoize(async (dispatch) => {
   const response = await gitNames.get("/itc.json");
+  // const response = await getPrices.get("/ITC");
+  // console.log("res: ", response.data.prices.ITC);
   //   console.log("res: ", response);
   dispatch({ type: "FETCH_PRICES", payload: response.data });
+  // dispatch({ type: "FETCH_PRICES", payload: response.data.prices.ITC });
 });
 
 export const setName = (name) => (dispatch) => {
   dispatch({ type: "SET_NAME", payload: name });
+};
+
+export const setChartType = (type) => (dispatch) => {
+  dispatch({ type: "SET_TYPE", payload: type });
+};
+
+export const loadStudies = (study) => (dispatch) => {
+  dispatch({ type: "LOAD_STUDY", payload: study });
 };

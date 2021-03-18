@@ -43,7 +43,7 @@ export default connect(mapStateToProps, { fetchNews })(News);
 
 const NewsContainer = styled.div`
   background: #e3e3e3;
-  height: 5500px;
+  height: 5000px;
   width: 100%;
   display: flex;
   flex-direction: column;

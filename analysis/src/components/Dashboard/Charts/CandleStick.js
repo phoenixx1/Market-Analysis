@@ -25,9 +25,9 @@ import {
   OHLCTooltip,
   MovingAverageTooltip,
 } from "react-stockcharts/lib/tooltip";
-import { ema } from "react-stockcharts/lib/indicator";
 import { fitWidth } from "react-stockcharts/lib/helper";
 import { last } from "react-stockcharts/lib/utils";
+import { ema, wma, sma, tma } from "react-stockcharts/lib/indicator";
 
 class CandleStickChartWithAnnotation extends React.Component {
   render() {
@@ -44,9 +44,8 @@ class CandleStickChartWithAnnotation extends React.Component {
     };
 
     const margin = { left: 80, right: 80, top: 30, bottom: 50 };
-    const height = 520;
-    const { type, data: initialData, ratio } = this.props;
-    const width = 1100;
+    const height = 400;
+    const { type, data: initialData, width, ratio, MA } = this.props;
     const [yAxisLabelX, yAxisLabelY] = [
       width - margin.left - 40,
       (height - margin.top - margin.bottom) / 2,
@@ -60,14 +59,32 @@ class CandleStickChartWithAnnotation extends React.Component {
     );
 
     const start = xAccessor(last(data));
-    const end = xAccessor(data[Math.max(0, data.length - 150)]);
+    const end = xAccessor(data[Math.max(0, data.length - 50)]);
     const xExtents = [start, end];
 
+    const ema5 = ema()
+      .options({
+        windowSize: 5, // optional will default to 10
+        sourcePath: "close", // optional will default to close as the source
+      })
+      .skipUndefined(true) // defaults to true
+      .merge((d, c) => {
+        d.EMA = c;
+      }) // Required, if not provided, log a error
+      .accessor((d) => d.EMA) // Required, if not provided, log an error during calculation
+      .stroke("blue"); // Optional
+
+    const sma5 = sma()
+      .options({ windowSize: 5 })
+      .merge((d, c) => {
+        d.SMA = c;
+      })
+      .accessor((d) => d.SMA);
     return (
       <ChartCanvas
-        height={height}
+        height={window.innerHeight - 100}
         ratio={ratio}
-        width={width}
+        width={window.innerWidth - 260}
         margin={margin}
         type={type}
         seriesName="MSFT"
@@ -86,7 +103,7 @@ class CandleStickChartWithAnnotation extends React.Component {
 
         <Chart
           id={1}
-          yExtents={[(d) => [d.high, d.low]]}
+          yExtents={[(d) => [d.high, d.low], ema5.accessor(), sma5.accessor()]}
           padding={{ top: 10, bottom: 20 }}
         >
           <XAxis axisAt="bottom" orient="bottom" />
@@ -100,26 +117,66 @@ class CandleStickChartWithAnnotation extends React.Component {
             orient="right"
             displayFormat={format(".2f")}
           />
+          <MouseCoordinateY
+            at="left"
+            orient="left"
+            displayFormat={format(".2f")}
+          />
 
-          <Label
+          {/* <Label
             x={(width - margin.left - margin.right) / 2}
             y={height - 45}
             fontSize="12"
             text="Date"
-          />
+          /> */}
 
           <YAxis axisAt="right" orient="right" ticks={5} />
-
-          <Label
+          <YAxis axisAt="left" orient="left" ticks={5} />
+          {/* <Label
             x={yAxisLabelX}
             y={yAxisLabelY}
             rotate={-90}
             fontSize="12"
             text="Price"
-          />
+          /> */}
 
           <CandlestickSeries />
-          <LineSeries yAccessor={(d) => d.future} stroke="#070fad" />
+          {MA ? (
+            <>
+              <LineSeries yAccessor={ema5.accessor()} stroke={ema5.stroke()} />
+              <CurrentCoordinate
+                yAccessor={ema5.accessor()}
+                fill={ema5.stroke()}
+              />
+              <LineSeries yAccessor={sma5.accessor()} stroke={sma5.stroke()} />
+              <CurrentCoordinate
+                yAccessor={sma5.accessor()}
+                fill={sma5.stroke()}
+              />
+              <MovingAverageTooltip
+                onClick={(e) => console.log(e)}
+                origin={[10, 15]}
+                options={[
+                  {
+                    yAccessor: ema5.accessor(),
+                    type: "EMA",
+                    stroke: ema5.stroke(),
+                    windowSize: ema5.options().windowSize,
+                    echo: "some echo here",
+                  },
+                  {
+                    yAccessor: sma5.accessor(),
+                    type: "SMA",
+                    stroke: sma5.stroke(),
+                    windowSize: sma5.options().windowSize,
+                    echo: "some echo here",
+                  },
+                ]}
+              />
+            </>
+          ) : (
+            <></>
+          )}
 
           <EdgeIndicator
             itemType="last"
@@ -129,13 +186,16 @@ class CandleStickChartWithAnnotation extends React.Component {
             fill={(d) => (d.close > d.open ? "#6BA583" : "#FF0000")}
           />
 
-          <OHLCTooltip origin={[-40, 0]} />
+          <OHLCTooltip origin={[-30, -15]} />
 
           <Annotate
             with={LabelAnnotation}
             when={(d) => d.date.getDate() === 1 /* some condition */}
             usingProps={annotationProps}
           />
+
+          {/* {SMA ? <LineSeries yAccessor={(d) => d.SMA} /> : <></>} */}
+          {/* {EMA ? <LineSeries yAccessor={(d) => d.EMA} /> : <></>} */}
         </Chart>
         <CrossHairCursor strokeDasharray="LongDashDot" />
       </ChartCanvas>

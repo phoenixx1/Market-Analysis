@@ -6,6 +6,7 @@ import * as AiIcons from "react-icons/ai";
 import { SidebarData } from "./SidebarData";
 import SubMenu from "./SubMenu";
 import { IconContext } from "react-icons/lib";
+import DropDownMenuSelect from "react-nested-menu-selector";
 
 function Sidebar() {
   const [sidebar, setSidebar] = useState(false);
@@ -20,6 +21,11 @@ function Sidebar() {
           <NavIcon to="#">
             <FaIcons.FaBars onClick={showSidebar} />
           </NavIcon>
+          {/* <DropDownMenuSelect
+            values={option}
+            // handleOnClick={this.handleOnClick}
+          /> */}
+          {/* <DropDownMenuSelect /> */}
         </Nav>
         <SidebarNav sidebar={sidebar}>
           <SidebarWrap>

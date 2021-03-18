@@ -1,9 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { fetchPrices } from "../../../actions";
-import { TypeChooser } from "react-stockcharts/lib/helper";
-import ShowChart from "./ShowChart";
+import { fetchPrices, setChartType, loadStudies } from "../../../actions";
+// import { TypeChooser } from "react-stockcharts/lib/helper";
+import CandleStick from "./CandleStick";
+import AreaChart from "./AreaChart";
+import LineChart from "./LineChart";
+import OHLCChart from "./OHLCChart";
+import KagiChart from "./KagiChart";
+import RenkoChart from "./RenkoChart";
+import PointFigureChart from "./PointFigureChart";
 // import { timeFormat } from "d3-time-format";
 
 class RenderChart extends React.Component {
@@ -24,7 +30,8 @@ class RenderChart extends React.Component {
           high: +c.High,
           low: +c.Low,
           close: +c.Close,
-          future: +c.ITC,
+          SMA: +c.SMA,
+          EMA: +c.EMA,
         });
       });
     });
@@ -32,22 +39,83 @@ class RenderChart extends React.Component {
     if (data.length === 0) {
       return <div>Loading....</div>;
     }
+    let MA = false;
+    this.props.studies.map((study) => {
+      if (study === "MA") MA = true;
+    });
 
-    return (
-      <ChartContainer>
-        {/* <TypeChooser>
+    switch (this.props.currentType) {
+      case "CandleStick":
+        return (
+          <ChartContainer>
+            {/* <TypeChooser>
           {(type) => <ShowChart type={type} data={data} />}
         </TypeChooser> */}
-        <ShowChart type={"canvas + svg"} data={data} />
-      </ChartContainer>
-    );
+
+            <CandleStick type={"canvas + svg"} data={data} MA={MA} />
+          </ChartContainer>
+        );
+        break;
+      case "Area":
+        return (
+          <ChartContainer>
+            <AreaChart type={"canvas + svg"} data={data} MA={MA} />
+          </ChartContainer>
+        );
+        break;
+      case "Line":
+        return (
+          <ChartContainer>
+            <LineChart type={"canvas + svg"} data={data} MA={MA} />
+          </ChartContainer>
+        );
+        break;
+      case "OHLC":
+        return (
+          <ChartContainer>
+            <OHLCChart type={"canvas + svg"} data={data} MA={MA} />
+          </ChartContainer>
+        );
+        break;
+      case "Kagi":
+        return (
+          <ChartContainer>
+            <KagiChart type={"canvas + svg"} data={data} />
+          </ChartContainer>
+        );
+        break;
+      case "Renko":
+        return (
+          <ChartContainer>
+            <RenkoChart type={"canvas + svg"} data={data} />
+          </ChartContainer>
+        );
+        break;
+      case "Point & Figure":
+        return (
+          <ChartContainer>
+            <PointFigureChart type={"canvas + svg"} data={data} />
+          </ChartContainer>
+        );
+        break;
+      default:
+        break;
+    }
   }
 }
 const mapStateToProps = (state) => {
-  return { prices: state.prices };
+  return {
+    prices: state.prices,
+    currentType: state.currentChartType,
+    studies: state.loadStudies,
+  };
 };
 
-export default connect(mapStateToProps, { fetchPrices })(RenderChart);
+export default connect(mapStateToProps, {
+  fetchPrices,
+  setChartType,
+  loadStudies,
+})(RenderChart);
 
 const ChartContainer = styled.div`
   justify-content: center;
