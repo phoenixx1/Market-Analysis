@@ -1,0 +1,18 @@
+{
+    "BBANDS": ["Close"],               
+    "DEMA": ["Close"],               
+    "EMA": ["Close"],                 
+    "HT_TRENDLINE": ["Close"],         
+    "KAMA": ["Close"],         
+    "MA": ["Close"],                 
+    "MAMA": ["Close"],              
+    "MIDPOINT": ["Close"],             
+    "MIDPRICE": ["Close", "Low"],             
+    "SAR": ["Close", "Low"],             
+    "SAREXT": ["Close", "Low"],               
+    "SMA": ["Close"],               
+    "T3": ["Close"],                  
+    "TEMA": ["Close"],                 
+    "TRIMA": ["Close"],                
+    "WMA": ["Close"]
+}
