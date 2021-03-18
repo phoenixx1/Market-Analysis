@@ -29,7 +29,9 @@ def applyStudy(companyName, studyName):
         ret = return_list.tolist()
         return_q = 1
 
-    return {studyName: ret, "metadata": {"return_q": return_q}}
+    final = {"data": {"studyName": ret, "metadata": {"return_q": return_q}}}
+    print(final)
+    return final
 
 class Studies(Resource):
     def get(self, cName, sName):
