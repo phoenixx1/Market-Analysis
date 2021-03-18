@@ -8,7 +8,7 @@ function CustomizationNav({ items, title, study, loadStudies }) {
   const updateType = (event, item) => {
     event.preventDefault();
     // setChartType(item);
-    console.log(item);
+    // console.log(item);
     loadStudies(item);
   };
 
