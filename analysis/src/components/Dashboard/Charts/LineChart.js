@@ -63,7 +63,10 @@ class LineChart extends React.Component {
         xScale={xScale}
         xExtents={xExtents}
       >
-        <Chart id={1} yExtents={(d) => [d.high, d.low]}>
+        <Chart
+          id={1}
+          yExtents={[(d) => [d.high, d.low], ema5.accessor(), sma5.accessor()]}
+        >
           <XAxis axisAt="bottom" orient="bottom" />
           <YAxis
             axisAt="right"

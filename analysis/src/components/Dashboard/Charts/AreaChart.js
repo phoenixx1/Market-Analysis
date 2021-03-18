@@ -69,7 +69,10 @@ class AreaChart extends React.Component {
         xScale={scaleTime()}
         xExtents={xExtents}
       >
-        <Chart id={0} yExtents={(d) => d.close}>
+        <Chart
+          id={0}
+          yExtents={[(d) => d.close, ema5.accessor(), sma5.accessor()]}
+        >
           <defs>
             <linearGradient id="MyGradient" x1="0" y1="100%" x2="0" y2="0%">
               <stop offset="0%" stopColor="#b5d0ff" stopOpacity={0.2} />

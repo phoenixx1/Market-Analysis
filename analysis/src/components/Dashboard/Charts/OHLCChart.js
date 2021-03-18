@@ -75,7 +75,7 @@ class OHLCChartWithElderRayIndicator extends React.Component {
       >
         <Chart
           id={1}
-          yExtents={(d) => [d.high, d.low]}
+          yExtents={[(d) => [d.high, d.low], ema5.accessor(), sma5.accessor()]}
           padding={{ top: 10, right: 0, bottom: 20, left: 0 }}
         >
           <YAxis axisAt="right" orient="right" ticks={5} />

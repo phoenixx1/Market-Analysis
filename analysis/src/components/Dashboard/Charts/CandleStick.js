@@ -94,13 +94,6 @@ class CandleStickChartWithAnnotation extends React.Component {
         displayXAccessor={displayXAccessor}
         xExtents={xExtents}
       >
-        {/* <Label
-          x={(width - margin.left - margin.right) / 2}
-          y={30}
-          fontSize="30"
-          text="ITC"
-        /> */}
-
         <Chart
           id={1}
           yExtents={[(d) => [d.high, d.low], ema5.accessor(), sma5.accessor()]}
@@ -123,22 +116,8 @@ class CandleStickChartWithAnnotation extends React.Component {
             displayFormat={format(".2f")}
           />
 
-          {/* <Label
-            x={(width - margin.left - margin.right) / 2}
-            y={height - 45}
-            fontSize="12"
-            text="Date"
-          /> */}
-
           <YAxis axisAt="right" orient="right" ticks={5} />
           <YAxis axisAt="left" orient="left" ticks={5} />
-          {/* <Label
-            x={yAxisLabelX}
-            y={yAxisLabelY}
-            rotate={-90}
-            fontSize="12"
-            text="Price"
-          /> */}
 
           <CandlestickSeries />
           {MA ? (
@@ -193,9 +172,6 @@ class CandleStickChartWithAnnotation extends React.Component {
             when={(d) => d.date.getDate() === 1 /* some condition */}
             usingProps={annotationProps}
           />
-
-          {/* {SMA ? <LineSeries yAccessor={(d) => d.SMA} /> : <></>} */}
-          {/* {EMA ? <LineSeries yAccessor={(d) => d.EMA} /> : <></>} */}
         </Chart>
         <CrossHairCursor strokeDasharray="LongDashDot" />
       </ChartCanvas>
