@@ -1,7 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { fetchPrices, setChartType, loadStudies } from "../../../actions";
+import {
+  fetchPrices,
+  setChartType,
+  loadStudies,
+  fetchStudies,
+} from "../../../actions";
 // import { TypeChooser } from "react-stockcharts/lib/helper";
 import CandleStick from "./CandleStick";
 import AreaChart from "./AreaChart";
@@ -15,11 +20,12 @@ import PointFigureChart from "./PointFigureChart";
 class RenderChart extends React.Component {
   componentDidMount() {
     this.props.fetchPrices();
+    this.props.fetchStudies();
   }
 
   render() {
     let data = [];
-    // const parseDate = timeFormat("%d-%B-%Y");
+
     this.props.prices.map((curr) => {
       curr.map((c) => {
         let tempDate = new Date(c.Date);
@@ -30,19 +36,20 @@ class RenderChart extends React.Component {
           high: +c.High,
           low: +c.Low,
           close: +c.Close,
-          SMA: +c.SMA,
-          EMA: +c.EMA,
+          // SMA: +c.SMA,
+          // EMA: +c.EMA,
         });
       });
     });
+
     // console.log(data);
     if (data.length === 0) {
       return <div>Loading....</div>;
     }
-    let MA = false;
-    this.props.studies.map((study) => {
-      if (study === "MA") MA = true;
-    });
+    let MA = true;
+    // this.props.studies.map((study) => {
+    //   if (study === "MA") MA = true;
+    // });
 
     switch (this.props.currentType) {
       case "CandleStick":
@@ -115,6 +122,7 @@ export default connect(mapStateToProps, {
   fetchPrices,
   setChartType,
   loadStudies,
+  fetchStudies,
 })(RenderChart);
 
 const ChartContainer = styled.div`
