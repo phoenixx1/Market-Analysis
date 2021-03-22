@@ -13,6 +13,6 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 api = Api(app)
 
 api.add_resource(CompanyData, '/data/<string:name>')
-api.add_resource(Studies, '/study/<string:cName>/<string:sName>')
+api.add_resource(Studies, '/study/<string:cName>/')
 
 app.run(debug=True)
