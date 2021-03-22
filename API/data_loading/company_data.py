@@ -5,7 +5,7 @@ import json
 
 class CompanyData(Resource):
     def get(self, name: str):
-        p = open('data/ITC.json')
+        p = open('./data/' + cName + '.json')
         prices = json.load(p)
 
         return {'prices': prices}
