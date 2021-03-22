@@ -6,8 +6,8 @@ import talib
 
 class Studies(Resource):
     def get(self, cName: str):
-        p = open(cName + '.json')
+        p = open('./data/' + cName + '.json')
         prices = json.load(p)
 
-        return {'prices': prices}
+        return {'prices': prices}, 200
         
