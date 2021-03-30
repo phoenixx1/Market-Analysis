@@ -13,7 +13,7 @@ function StudyDropdown({ list, name, study, loadStudies, latestStudy }) {
   return (
     <DropdownButton
       id="dropdown-variants-secondary"
-      variant="secondary"
+      variant="light"
       title={name}
       drop="right"
     >

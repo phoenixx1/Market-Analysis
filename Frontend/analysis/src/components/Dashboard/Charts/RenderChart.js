@@ -17,6 +17,7 @@ import RenkoChart from "./RenkoChart";
 import PointFigureChart from "./PointFigureChart";
 
 import ReactDOM from "react-dom";
+import { Spinner } from "react-bootstrap";
 
 class RenderChart extends React.Component {
   constructor(props) {
@@ -156,7 +157,19 @@ class RenderChart extends React.Component {
 
     // console.log(data);
     if (data.length === 0) {
-      return <div>Loading....</div>;
+      return (
+        <div
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+            width: "100vw",
+            display: "flex",
+            height: window.innerHeight - 100,
+          }}
+        >
+          <Spinner animation="border" role="status" />
+        </div>
+      );
     }
     let indicators = {};
     this.props.studies.map((study) => {
