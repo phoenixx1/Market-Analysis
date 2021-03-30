@@ -31,8 +31,8 @@ export const fetchNews = () => (dispatch) => {
   _fetchNews(dispatch);
 };
 const _fetchNews = _.memoize(async (dispatch) => {
-  // const response = await newsAPI.get();
-  const response = await gitNames("/news.json");
+  const response = await newsAPI.get();
+  // const response = await gitNames("/news.json");
   // console.log("news: ", response.data.articles);
   dispatch({ type: "FETCH_NEWS", payload: response.data.articles });
 });
@@ -41,22 +41,10 @@ export const fetchPrices = () => (dispatch) => {
   _fetchPrices(dispatch);
 };
 const _fetchPrices = _.memoize(async (dispatch) => {
-  // const response = await gitNames.get("/itc.json");
-  const response = await getPrices.get("/data/ITC");
-  // console.log("res: ", response);
-  // console.log("res: ", response.data.prices.ITC);
-  // dispatch({ type: "FETCH_PRICES", payload: response.data });
-  dispatch({ type: "FETCH_PRICES", payload: response.data.prices.ITC });
-});
-
-export const fetchStudies = () => (dispatch) => {
-  _fetchStudies(dispatch);
-};
-const _fetchStudies = _.memoize(async (dispatch) => {
-  const response = await getPrices.get("/study/ITC/MA");
-  const data = response.data.slice(1, response.data.length - 1);
-  // console.log(data.split(", ").map((x) => +x));
-  dispatch({ type: "FETCH_STUDIES", payload: data.split(", ").map((x) => +x) });
+  const response = await gitNames("/itc.json");
+  // const response = await getPrices.get("/BPL/study");
+  console.log("res: ", response.data);
+  dispatch({ type: "FETCH_PRICES", payload: response.data });
 });
 
 export const setName = (name) => (dispatch) => {
@@ -69,4 +57,8 @@ export const setChartType = (type) => (dispatch) => {
 
 export const loadStudies = (study) => (dispatch) => {
   dispatch({ type: "LOAD_STUDY", payload: study });
+};
+
+export const latestStudy = (study) => (dispatch) => {
+  dispatch({ type: "SET_STUDY", payload: study });
 };

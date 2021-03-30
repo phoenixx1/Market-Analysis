@@ -3,7 +3,7 @@ export default (state = [], action) => {
     return [];
   } else {
     switch (action.type) {
-      case "FETCH_STUDIES":
+      case "LOAD_STUDY":
         return [...state, action.payload];
       default:
         return state;

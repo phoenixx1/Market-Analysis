@@ -35,7 +35,7 @@ function Sidebar({ currentCompanyName }) {
               "Point & Figure",
             ]}
           />
-          <CustomizationNavStudy title={"Study"} items={["MA", "Clear"]} />
+          <CustomizationNavStudy title={"Study"} />
         </Nav>
 
         <SidebarNav sidebar={sidebar}>
