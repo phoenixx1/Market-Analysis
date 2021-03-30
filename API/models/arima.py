@@ -132,7 +132,7 @@ class ARIMA(Resource):
         for i in pred1.index:
             p.append(pred1.loc[i].to_dict())
 
-        return p
+        return p, 200
 
        
 
