@@ -5,7 +5,7 @@ import {
   fetchPrices,
   setChartType,
   loadStudies,
-  latestStudy,
+  latestStudy,setName
 } from "../../../actions";
 import { TypeChooser, SaveChartAsImage } from "react-stockcharts/lib/helper";
 import CandleStick from "./CandleStick";
@@ -34,12 +34,13 @@ class RenderChart extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchPrices();
+    // this.props.fetchPrices(this.props.currentCompany);
   }
 
   render() {
     let data = [];
-
+    this.props.fetchPrices(this.props.currentCompany);
+    
     this.props.prices.map((curr) => {
       curr.map((c) => {
         var dt = c.Date.toString();
@@ -281,7 +282,7 @@ const mapStateToProps = (state) => {
     prices: state.prices,
     currentType: state.currentChartType,
     studies: state.loadStudies,
-    selectedStudy: state.selectedStudy,
+    selectedStudy: state.selectedStudy,currentCompany:state.currentCompany,
   };
 };
 
@@ -289,7 +290,7 @@ export default connect(mapStateToProps, {
   fetchPrices,
   setChartType,
   loadStudies,
-  latestStudy,
+  latestStudy,setName,
 })(RenderChart);
 
 const ChartContainer = styled.div`

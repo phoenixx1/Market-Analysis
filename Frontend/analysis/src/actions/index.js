@@ -37,14 +37,27 @@ const _fetchNews = _.memoize(async (dispatch) => {
   dispatch({ type: "FETCH_NEWS", payload: response.data.articles });
 });
 
-export const fetchPrices = () => (dispatch) => {
-  _fetchPrices(dispatch);
+export const fetchPrices = (company) => async (dispatch) => {
+  _fetchPrices(company,dispatch);
+  // const response = await getPrices.get(`/data/${company}`);
+  // console.log("res: ", response.data.prices);
+  // dispatch({ type: "FETCH_PRICES", payload: response.data.prices });
 };
-const _fetchPrices = _.memoize(async (dispatch) => {
-  const response = await gitNames("/itc.json");
-  // const response = await getPrices.get("/BPL/study");
+const _fetchPrices = _.memoize(async (company,dispatch) => {
+  // // const response = await gitNames("/itc.json");
+  const response = await getPrices.get(`/data/${company}`);
+  console.log("res: ", response.data.prices);
+  dispatch({ type: "FETCH_PRICES", payload: response.data.prices });
+});
+
+export const fetchArima = (company) => (dispatch) => {
+  _fetchArima(company,dispatch);
+};
+const _fetchArima = _.memoize(async (company,dispatch) => {
+  // const response = await gitNames("/itc.json");
+  const response = await getPrices.get(`/ARIMA/${company}`);
   console.log("res: ", response.data);
-  dispatch({ type: "FETCH_PRICES", payload: response.data });
+  dispatch({ type: "FETCH_ARIMA", payload: response.data });
 });
 
 export const setName = (name) => (dispatch) => {

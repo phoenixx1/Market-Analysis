@@ -17,6 +17,9 @@ import { discontinuousTimeScaleProvider } from "react-stockcharts/lib/scale";
 import { OHLCTooltip } from "react-stockcharts/lib/tooltip";
 import { fitWidth } from "react-stockcharts/lib/helper";
 import { last } from "react-stockcharts/lib/utils";
+import { MovingAverageTooltip } from "react-stockcharts/lib/tooltip";
+import { sma } from "react-stockcharts/lib/indicator";
+import { CurrentCoordinate } from "react-stockcharts/lib/coordinates";
 
 class LineChart extends React.Component {
   render() {
@@ -30,12 +33,27 @@ class LineChart extends React.Component {
     const height = window.innerHeight - window.innerHeight * 0.5;
     const margin = { left: 40, right: 80, top: 20, bottom: 30 };
     const xExtents = [xAccessor(last(data)), xAccessor(data[data.length - 50])];
+    // VWAP
+    const vwap = sma()
+    .merge((d, c) => {
+      d.VWAP = c;
+    })
+    .accessor((d) => d.VWAP)
+    .stroke("red");
+
+    // Forecast
+    const forecast = sma()
+      .merge((d, c) => {
+        d.Forecast = c;
+      })
+      .accessor((d) => d.Forecast)
+      .stroke("blue");
 
     return (
       <ChartCanvas
         height={height}
         ratio={ratio}
-        width={window.innerWidth - window.innerWidth * 0.42}
+        width={window.innerWidth - window.innerWidth * 0.58}
         margin={margin}
         type={type}
         pointsPerPxThreshold={1}
@@ -47,24 +65,64 @@ class LineChart extends React.Component {
       >
         <Chart
           id={1}
-          yExtents={[(d) => [d.high, d.low]]}
+          yExtents={[(d) => [d.VWAP, d.Forecast]]}
           padding={{ top: 45, bottom: 50 }}
         >
           <XAxis axisAt="bottom" orient="bottom" />
-          <YAxis axisAt="right" orient="right" ticks={5} />
-          <MouseCoordinateX
-            at="bottom"
-            orient="bottom"
-            displayFormat={timeFormat("%Y-%m-%d")}
-          />
-          <MouseCoordinateY
-            at="right"
-            orient="right"
-            displayFormat={format(".2f")}
-          />
-          <LineSeries yAccessor={(d) => d.close} />
+              <YAxis axisAt="right" orient="right" ticks={5} />
+              <MouseCoordinateX
+                at="bottom"
+                orient="bottom"
+                displayFormat={timeFormat("%Y-%m-%d")}
+              />
+              <MouseCoordinateY
+                at="right"
+                orient="right"
+                displayFormat={format(".2f")}
+              />
+              <LineSeries
+              yAccessor={vwap.accessor()}
+              stroke={vwap.stroke()}
+              highlightOnHover
+            />
+            <CurrentCoordinate
+              yAccessor={vwap.accessor()}
+              fill={vwap.stroke()}
+            />
+            <MovingAverageTooltip
+              onClick={(e) => console.log(e)}
+              origin={[0, 0]}
+              options={[
+                {
+                  yAccessor: vwap.accessor(),
+                  type: "VWAP",
+                  windowSize: 0,
+                  stroke: vwap.stroke(),
+                },
+              ]}
+            />
 
-          <OHLCTooltip origin={[-30, -15]} />
+         <LineSeries
+              yAccessor={forecast.accessor()}
+              stroke={forecast.stroke()}
+              highlightOnHover
+            />
+            <CurrentCoordinate
+              yAccessor={forecast.accessor()}
+              fill={forecast.stroke()}
+            />
+            <MovingAverageTooltip
+              onClick={(e) => console.log(e)}
+              origin={[60, 0]}
+              options={[
+                {
+                  yAccessor: forecast.accessor(),
+                  type: "Forecast",
+                  windowSize: 0,
+                  stroke: forecast.stroke(),
+                },
+              ]}
+            />
         </Chart>
 
         <CrossHairCursor />

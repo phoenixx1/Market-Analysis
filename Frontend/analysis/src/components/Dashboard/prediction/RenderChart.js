@@ -2,33 +2,26 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import LineChart from "./LineChart";
-import { fetchPrices } from "../../../actions";
+import { fetchArima,setName } from "../../../actions";
 import { Spinner } from "react-bootstrap";
 
 class RenderChart extends React.Component {
   componentDidMount() {
-    this.props.fetchPrices();
+    // this.props.fetchArima(this.props.currentCompany);
   }
 
   render() {
+    this.props.fetchArima(this.props.currentCompany);
     let data = [];
 
-    this.props.prices.map((curr) => {
+    this.props.arima.map((curr) => {
       curr.map((c) => {
-        var dt = c.Date.toString();
-        let tempDate = new Date(
-          dt.substring(0, 4),
-          dt.substring(4, 6) - 1,
-          dt.substring(6, 8)
-        );
-
+        var dt = new Date(c.Date);
+ 
         data.push({
-          date: tempDate,
-          open: +c.Open,
-          high: +c.High,
-          low: +c.Low,
-          close: +c.Close,
-          volume: c.Volume,
+          date: dt,
+          VWAP: c.VWAP,
+          Forecast: c.Forecast_ARIMA,
         });
       });
     });
@@ -39,7 +32,7 @@ class RenderChart extends React.Component {
           style={{
             alignItems: "center",
             justifyContent: "center",
-            width: window.innerWidth - window.innerWidth * 0.42,
+            width: window.innerWidth - window.innerWidth * 0.6,
             display: "flex",
             height: window.innerHeight - window.innerHeight * 0.5,
           }}
@@ -57,12 +50,12 @@ class RenderChart extends React.Component {
 }
 const mapStateToProps = (state) => {
   return {
-    prices: state.prices,
+    arima: state.arima,currentCompany:state.currentCompany,
   };
 };
 
 export default connect(mapStateToProps, {
-  fetchPrices,
+  fetchArima,setName
 })(RenderChart);
 
 const ChartContainer = styled.div`

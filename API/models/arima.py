@@ -126,7 +126,7 @@ class ARIMA(Resource):
         pred1['Date'] = pred['Date'].astype(str).values
         pred1['VWAP'] = pred['VWAP'].values
         pred1['Forecast_ARIMA'] = pred['Forecast_ARIMA'].values
-
+    
         p = []
 
         for i in pred1.index:

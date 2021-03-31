@@ -22,7 +22,7 @@ function AnalysisPopup() {
         keyboard={false}
       >
         <Modal.Header>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>ARIMA</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <RenderChart />
