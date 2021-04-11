@@ -12,8 +12,7 @@ function RenderChart({ arima, currentCompany, fetchArima }) {
 
   let data = [];
 
-  arima.map((curr) => {
-    curr.map((c) => {
+  arima.map((c) => {
       var dt = new Date(c.Date);
 
       data.push({
@@ -21,7 +20,6 @@ function RenderChart({ arima, currentCompany, fetchArima }) {
         VWAP: c.VWAP,
         Forecast: c.Forecast_ARIMA,
       });
-    });
   });
 
   if (data.length === 0) {
