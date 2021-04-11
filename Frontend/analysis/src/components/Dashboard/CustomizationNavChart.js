@@ -10,7 +10,7 @@ function CustomizationNav({ items, title, currentType, setChartType }) {
 
     setChartType(item);
   };
-
+  const direction = "right";
   return (
     <DropDownContainer>
       <DropdownButton
@@ -18,6 +18,16 @@ function CustomizationNav({ items, title, currentType, setChartType }) {
         variant="secondary"
         title={title}
       >
+        {/* <DropdownButton
+          id="dropdown-variants-secondary"
+          variant="secondary"
+          title={title}
+          drop="right"
+        >
+          <Dropdown.Item>Hi</Dropdown.Item>
+        </DropdownButton> */}
+        {/* <Dropdown.Header>Head</Dropdown.Header>
+        <Dropdown.Divider /> */}
         {items.map((item) => {
           return (
             <Dropdown.Item

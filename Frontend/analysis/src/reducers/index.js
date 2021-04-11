@@ -5,6 +5,8 @@ import priceReducer from "./priceReducer";
 import selectedCompanyReducer from "./selectedCompanyReducer";
 import chartReducer from "./chartReducer";
 import studyReducer from "./studyReducer";
+import setStudyReducer from "./setStudyReducer";
+import arimaReducer from './arimaReducer';
 
 export default combineReducers({
   company: nameReducer,
@@ -13,4 +15,6 @@ export default combineReducers({
   currentCompany: selectedCompanyReducer,
   currentChartType: chartReducer,
   loadStudies: studyReducer,
+  selectedStudy: setStudyReducer,
+  arima: arimaReducer,
 });

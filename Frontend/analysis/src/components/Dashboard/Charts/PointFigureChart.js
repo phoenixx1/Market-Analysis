@@ -18,6 +18,7 @@ import { OHLCTooltip } from "react-stockcharts/lib/tooltip";
 import { pointAndFigure } from "react-stockcharts/lib/indicator";
 import { fitWidth } from "react-stockcharts/lib/helper";
 import { last } from "react-stockcharts/lib/utils";
+import Indicators from "./Indicators";
 
 class PointAndFigure extends React.Component {
   getChartCanvas() {
@@ -25,8 +26,16 @@ class PointAndFigure extends React.Component {
   }
   render() {
     const pAndF = pointAndFigure();
-    const { type, data: initialData, width, ratio } = this.props;
-
+    const {
+      type,
+      data: initialData,
+      width,
+      ratio,
+      indicators,
+      selectedStudy,
+    } = this.props;
+    const margin = { left: 80, right: 80, top: 30, bottom: 50 };
+    const height = window.innerHeight - 100;
     const calculatedData = pAndF(initialData);
     const xScaleProvider = discontinuousTimeScaleProvider.inputDateAccessor(
       (d) => d.date
@@ -41,10 +50,10 @@ class PointAndFigure extends React.Component {
 
     return (
       <ChartCanvas
-        height={window.innerHeight - 100}
+        height={height}
         ratio={ratio}
         width={window.innerWidth - 260}
-        margin={{ left: 80, right: 80, top: 10, bottom: 30 }}
+        margin={margin}
         type={type}
         seriesName="MSFT"
         data={data}
@@ -55,8 +64,8 @@ class PointAndFigure extends React.Component {
       >
         <Chart
           id={1}
-          yExtents={(d) => [d.high, d.low]}
-          padding={{ top: 10, bottom: 20 }}
+          yExtents={[(d) => [d.high, d.low]]}
+          padding={{ top: 45, bottom: 50 }}
         >
           <XAxis axisAt="bottom" orient="bottom" />
           <YAxis axisAt="right" orient="right" ticks={5} />
@@ -75,8 +84,9 @@ class PointAndFigure extends React.Component {
             orient="bottom"
             displayFormat={timeFormat("%Y-%m-%d")}
           />
+          <Indicators data={data} indicators={indicators} />
           <PointAndFigureSeries />
-          <OHLCTooltip origin={[-40, 0]} />
+          <OHLCTooltip origin={[-30, -15]} />
         </Chart>
         <CrossHairCursor />
       </ChartCanvas>

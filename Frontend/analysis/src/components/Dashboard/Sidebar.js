@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import AnalysisSidebar from "./AnalysisSidebar";
 import CustomizationNavChart from "./CustomizationNavChart";
 import CustomizationNavStudy from "./CustomizationNavStudy";
+import AnalysisPopup from "./prediction/AnalysisPopup";
 
 function Sidebar({ currentCompanyName }) {
   const [sidebar, setSidebar] = useState(false);
@@ -19,9 +20,9 @@ function Sidebar({ currentCompanyName }) {
       <IconContext.Provider value={{ color: "#fff" }}>
         {/* global value for all icons */}
         <Nav>
-          <NavIcon to="#">
+          {/* <NavIcon to="#">
             <FaIcons.FaBars onClick={showSidebar} />
-          </NavIcon>
+          </NavIcon> */}
           <CompanyName>{currentCompanyName}</CompanyName>
           <CustomizationNavChart
             title={"Display"}
@@ -35,7 +36,8 @@ function Sidebar({ currentCompanyName }) {
               "Point & Figure",
             ]}
           />
-          <CustomizationNavStudy title={"Study"} items={["MA", "Clear"]} />
+          <CustomizationNavStudy title={"Study"} />
+          <AnalysisPopup />
         </Nav>
 
         <SidebarNav sidebar={sidebar}>
@@ -57,7 +59,7 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps)(Sidebar);
 
 const CompanyName = styled.h4`
-  margin-left: 220px;
+  margin-left: 250px;
   margin-top: 0.5rem;
   font-size: 1.5rem;
   height: 40px;

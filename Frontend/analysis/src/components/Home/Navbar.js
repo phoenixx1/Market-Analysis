@@ -30,7 +30,7 @@ function Navbar() {
           </NavItem>
         </NavMenu>
 
-        {!user ? (
+        {/* {!user ? (
           <NavBtn>
             <NavBtnLink onClick={signIn}>Sign In</NavBtnLink>
           </NavBtn>
@@ -40,7 +40,7 @@ function Navbar() {
             alt={user?.displayName}
             src={user?.photoURL}
           />
-        )}
+        )} */}
       </NavbarContainer>
     </Nav>
   );
