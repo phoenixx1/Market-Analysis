@@ -8,4 +8,4 @@ class CompanyData(Resource):
         p = open('data_json/' + name + '.json')
         prices = json.load(p)
 
-        return {'prices': prices}
+        return {'prices': prices}, 200

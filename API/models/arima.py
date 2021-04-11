@@ -133,19 +133,3 @@ class ARIMA(Resource):
             p.append(pred1.loc[i].to_dict())
 
         return p, 200
-
-       
-
-# model = ARIMAModel('AXISBANK')
-# pred = model.run()
-# pred1 = pd.DataFrame()
-# pred1['Date'] = pred['Date'].astype(str).values
-# pred1['VWAP'] = pred['VWAP'].values
-# pred1['Forecast_ARIMA'] = pred['Forecast_ARIMA'].values
-
-# p = []
-
-# for i in pred1.index:
-#     p.append(pred1.loc[i].to_json())
-
-# print(p)
